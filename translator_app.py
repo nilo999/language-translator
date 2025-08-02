@@ -22,7 +22,7 @@ NOTICE_EN = (
 
 def translate(text, lang_code):
     try:
-        placeholder = "<<<PEOPLE_TEAM>>>"
+        placeholder = "PEOPLE_TEAM"
         text = text.replace("People Team", placeholder)
         translated_main = GoogleTranslator(source='auto', target=lang_code).translate(text)
         translated_main = translated_main.replace(placeholder, "People Team")
