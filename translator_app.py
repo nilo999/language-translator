@@ -42,6 +42,17 @@ def translate_text(original_text, target_lang_name):
         return f"❌ Error translating: {e}"
 
 # Streamlit UI
-st.set_page_config(page_title="Multi-Language Translator")
-st.title("🌍 Multi-Language Translator")
+st.set_page_config(page_title="David Lloyd Multi-Language Translator")
+st.title("🌍 David Lloyd Multi-Language Translator")
 st.markdown("Type in English and get instant translations:")
+
+text = st.text_area("Enter English text:", height=150)
+
+if st.button("Translate"):
+    if not text.strip():
+        st.warning("Please enter some English text.")
+    else:
+        for lang, lang_name in LANG_CODES.items():
+            st.markdown(f"### {FLAGS[lang]} {lang}")
+            result = translate_text(text, lang_name)
+            st.markdown(result)
