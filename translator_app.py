@@ -1,7 +1,6 @@
 import streamlit as st
 from deep_translator import GoogleTranslator
 
-# Flags per language
 FLAGS = {
     'ES': '🇪🇸',
     'FR': '🇫🇷🇧🇪',
@@ -9,7 +8,6 @@ FLAGS = {
     'IT': '🇮🇹'
 }
 
-# Language mapping
 LANG_CODES = {
     'ES': 'spanish',
     'FR': 'french',
@@ -17,13 +15,11 @@ LANG_CODES = {
     'IT': 'italian'
 }
 
-# Base notice in English
 NOTICE_EN = (
     "machine translated. in case of doubt, please refer to the english version of this text, "
     "or get in contact with the People Team."
 )
 
-# Translation function
 def translate(text, lang_code):
     try:
         placeholder = "<<<PEOPLE_TEAM>>>"
@@ -39,7 +35,6 @@ def translate(text, lang_code):
     except Exception as e:
         return f"⚠️ Error: {e}"
 
-# Streamlit UI
 st.set_page_config(page_title="🌍 4-Language Translator", layout="centered")
 st.title("🌍 4-Language Translator")
 
@@ -47,3 +42,9 @@ input_text = st.text_area("✏️ Enter your English text here:", height=200)
 
 if st.button("Translate"):
     if input_text.strip() == "":
+        st.warning("Please enter some English text above.")
+    else:
+        for lang, lang_name in LANG_CODES.items():
+            st.markdown(f"---\n### {FLAGS[lang]} {lang}")
+            translated = translate(input_text, lang_name)
+            st.markdown(translated)
